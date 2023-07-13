@@ -23,6 +23,7 @@ public class PlayerMovementV2 : MonoBehaviour
 
     [Header("Testing things")]
     [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 moveDir;
+    [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 relativeMoreDir;
     [SerializeField] [Tooltip("Testing purposes as of now")] private Transform cam;
     private float gravity = -9.81f;
 
@@ -59,7 +60,7 @@ public class PlayerMovementV2 : MonoBehaviour
         Vector3 relativeForward = inputVector.y * camForward;
         Vector3 relativeRight = inputVector.x * camRight;
 
-        Vector3 relativeMoreDir = relativeForward + relativeRight;
+        relativeMoreDir = relativeForward + relativeRight;
 
         //moveDir.x = inputVector.x;
         //moveDir.z = inputVector.y;
