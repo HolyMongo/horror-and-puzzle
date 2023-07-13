@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMovementV2 : MonoBehaviour
 {
 
-    private Transform cam;
     PlayerInputActions inputActions;
     private CharacterController cC;
 
@@ -24,6 +23,7 @@ public class PlayerMovementV2 : MonoBehaviour
 
     [Header("Testing things")]
     [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 moveDir;
+    [SerializeField] [Tooltip("Testing purposes as of now")] private Transform cam;
     private float gravity = -9.81f;
 
     void Start()
@@ -49,19 +49,34 @@ public class PlayerMovementV2 : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 inputVector = inputActions.Player.Walking.ReadValue<Vector2>().normalized;
-        moveDir.x = inputVector.x;
-        moveDir.z = inputVector.y;
+
+        Vector3 camRight = cam.right;
+        Vector3 camForward = cam.forward;
+
+        camRight.y = 0;
+        camForward.y = 0;
+
+        Vector3 relativeForward = inputVector.y * camForward;
+        Vector3 relativeRight = inputVector.x * camRight;
+
+        Vector3 relativeMoreDir = relativeForward + relativeRight;
+
+        //moveDir.x = inputVector.x;
+        //moveDir.z = inputVector.y;
 
 
         if (inputActions.Player.Sprint.IsPressed())
         {
-            moveDir.x *= sprintMuliplier;
-            moveDir.z *= sprintMuliplier;
+            //moveDir.x *= sprintMuliplier;
+            //moveDir.z *= sprintMuliplier;
+            relativeMoreDir.x *= sprintMuliplier;
+            relativeMoreDir.z *= sprintMuliplier;
         }
 
         Gravity();
 
-        cC.Move(new Vector3(moveDir.x * walkSpeed, moveDir.y, moveDir.z * walkSpeed) * Time.deltaTime);
+        //cC.Move(new Vector3(moveDir.x * walkSpeed, moveDir.y, moveDir.z * walkSpeed) * Time.deltaTime);
+        cC.Move(new Vector3(relativeMoreDir.x * walkSpeed, moveDir.y, relativeMoreDir.z * walkSpeed) * Time.deltaTime);
     }
 
     //applies gravity to the character controller
