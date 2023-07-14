@@ -750,7 +750,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
+  sharedProfile: {fileID: 11400000, guid: adc1d21560977954586f8aac2eaf64e0, type: 2}
 --- !u!4 &1323220185
 Transform:
   m_ObjectHideFlags: 0
@@ -972,8 +972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensX: 20
-  invertX: 0
   sensY: 20
+  invertX: 0
   invertY: 0
   minClampY: -80
   maxClampY: 80
