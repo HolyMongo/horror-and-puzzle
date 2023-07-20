@@ -12,7 +12,7 @@ public class PlayerMovementV2 : MonoBehaviour
     [Header("Speed values of the movement")]
     [SerializeField] [Tooltip("Walking speed of the player")] private float walkSpeed = 7;
     [SerializeField] [Tooltip("Multiplier when the player is sprinting")] private float sprintMuliplier = 1.5f;
-    [SerializeField] [Tooltip("With how much force the player jumps")] private float jumpPower = 4;
+    [SerializeField] [Tooltip("With how much force the player jumps")] private float jumpPower = 2;
     private float gravity = -9.81f;
 
     [Header("Ground Regristration")]
@@ -21,13 +21,11 @@ public class PlayerMovementV2 : MonoBehaviour
     [SerializeField] [Tooltip("True if the player is grounded")] private bool isGrounded;
     private float groundDistance = 0.3f; //radius on the ground checking sphere
 
-
     [Header("Testing things")]
     //it is the SerializeField that is in testing and not the variables
     [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 moveDir;
     [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 relativeMoreDir;
     [SerializeField] [Tooltip("Testing purposes as of now")] private Transform cam;
-
 
     //Assign variables values and enable action map for inputs
     void Start()
@@ -37,6 +35,19 @@ public class PlayerMovementV2 : MonoBehaviour
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
         inputActions.Player.Jumping.performed += Jump;
+        inputActions.Player.Pause.performed += Pause;
+    }
+
+    private void Pause(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     //Sorta self explanitory
@@ -74,23 +85,26 @@ public class PlayerMovementV2 : MonoBehaviour
             relativeMoreDir.z *= sprintMuliplier;
         }
 
-        //calls the gravity function to update the vertical force
-        Gravity();
 
         //applies the respective forces in the character controllers own method "Move" to move the character
         cC.Move(new Vector3(relativeMoreDir.x * walkSpeed, moveDir.y, relativeMoreDir.z * walkSpeed) * Time.deltaTime);
     }
 
+    private void Update()
+    {
+        //calls the gravity function to update the vertical force
+        Gravity();
+    }
+
     //applies gravity to the character controller
     private void Gravity()
     {
-        if (IsGrounded())
+        if (IsGrounded() && moveDir.y < 0)
         {
-            if (moveDir.y < 0)
-                moveDir.y = 0;
+            moveDir.y = -2f;
         }
-        else
-            moveDir.y += gravity * Time.deltaTime;
+        
+        moveDir.y += gravity * Time.deltaTime;
     }
 
 

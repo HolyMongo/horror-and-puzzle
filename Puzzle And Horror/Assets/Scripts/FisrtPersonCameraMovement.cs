@@ -28,6 +28,7 @@ public class FisrtPersonCameraMovement : MonoBehaviour
         cam = Camera.main.transform;
         inputActions = new PlayerInputActions();
         inputActions.Player.Camera.Enable();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
