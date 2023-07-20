@@ -85,8 +85,10 @@ public class PlayerMovementV2 : MonoBehaviour
     private void Gravity()
     {
         if (IsGrounded())
+        {
             if (moveDir.y < 0)
                 moveDir.y = 0;
+        }
         else
             moveDir.y += gravity * Time.deltaTime;
     }
