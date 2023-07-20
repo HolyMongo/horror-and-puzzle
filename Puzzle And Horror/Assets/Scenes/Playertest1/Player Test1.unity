@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 7
   sprintMuliplier: 1.5
-  jumpPower: 4
+  jumpPower: 1.5
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1173,8 +1173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensX: 20
-  invertX: 0
   sensY: 20
+  invertX: 0
   invertY: 0
   minClampY: -80
   maxClampY: 80
@@ -1454,8 +1454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensX: 0
-  invertX: 0
   sensY: 0
+  invertX: 0
   invertY: 0
   minClampY: -90
   maxClampY: 90
