@@ -21,18 +21,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BGR_Water
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ValidKeywords:
+  m_Shader: {fileID: 10606, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _EMISSION
   - _NORMALMAP
   - _PARALLAXMAP
-  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -191,6 +190,7 @@ Material:
     - _SSSIntensity: 0.5
     - _SSSPower: 1
     - _ScrollSpeed: 0.4
+    - _ShadowStrength: 1
     - _Shift: 0
     - _Shininess: 0.6012862
     - _Smoothness: 1
@@ -199,8 +199,10 @@ Material:
     - _SpecContrast: 2
     - _SpecIntensity: 2.3
     - _SpecularHighlights: 1
+    - _SquashAmount: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _TranslucencyViewDependency: 0.7
     - _Transparency: 0.95
     - _WaveFreq: 20
     - _WaveHeight: 0.25
@@ -242,6 +244,9 @@ Material:
     - _SpColor: {r: 0.25882354, g: 0.2304037, b: 0.2304037, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecularColor: {r: 0.72, g: 0.72, b: 0.72, a: 1}
+    - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.40999997, a: 1}
+    - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
     - _WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
     - _WorldLightDir: {r: 0, g: 0.1, b: -0.5, a: 0}
     - _fogColor: {r: 0.29211843, g: 0.4276772, b: 0.5686275, a: 1}
