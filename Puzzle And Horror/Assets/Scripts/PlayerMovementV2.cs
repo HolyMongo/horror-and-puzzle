@@ -73,6 +73,9 @@ public class PlayerMovementV2 : MonoBehaviour
         camRight.y = 0;
         camForward.y = 0;
 
+        camRight = camRight.normalized;
+        camForward = camForward.normalized;
+
         Vector3 relativeForward = inputVector.y * camForward;
         Vector3 relativeRight = inputVector.x * camRight;
 
