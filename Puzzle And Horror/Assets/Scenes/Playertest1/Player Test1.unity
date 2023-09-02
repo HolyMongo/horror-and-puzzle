@@ -1064,11 +1064,16 @@ MonoBehaviour:
   walkSpeed: 7
   sprintMuliplier: 1.5
   jumpPower: 1.5
+  isCrouching: 0
+  crouchSpeedModifier: 0
+  slideDeacceleration: 1
+  minimumSlideSpeed: 7
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   groundcheck: {fileID: 1047492750}
   isGrounded: 0
+  characterModel: {fileID: 53396147}
   moveDir: {x: 0, y: 0, z: 0}
   relativeMoreDir: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}

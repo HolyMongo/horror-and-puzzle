@@ -9,11 +9,17 @@ public class PlayerMovementV2 : MonoBehaviour
     PlayerInputActions inputActions;
     private CharacterController cC;
 
-    [Header("Speed values of the movement")]
+    [Header("Speed Values Of The Movement")]
     [SerializeField] [Tooltip("Walking speed of the player")] private float walkSpeed = 7;
     [SerializeField] [Tooltip("Multiplier when the player is sprinting")] private float sprintMuliplier = 1.5f;
     [SerializeField] [Tooltip("With how much force the player jumps")] private float jumpPower = 2;
     private float gravity = -9.81f;
+
+    [Header("Crouch And Slide Mechanic")]
+    [SerializeField] [Tooltip("Is the player crouching or not")] private bool isCrouching = false;
+    [SerializeField] [Tooltip("How much the player slows down when crouching")] private float crouchSpeedModifier;
+    [SerializeField] [Tooltip("How fast the player slows down when he/she slides")] private float slideDeacceleration = 1;
+    [SerializeField] [Tooltip("How slow the player can go before he/she stops sliding")] private float minimumSlideSpeed = 7;
 
     [Header("Ground Regristration")]
     [SerializeField] [Tooltip("The layers that the player registers as ground")] private LayerMask groundMask;
@@ -21,7 +27,10 @@ public class PlayerMovementV2 : MonoBehaviour
     [SerializeField] [Tooltip("True if the player is grounded")] private bool isGrounded;
     private float groundDistance = 0.3f; //radius on the ground checking sphere
 
-    [Header("Testing things")]
+    [Header("Visuals")]
+    [SerializeField] [Tooltip("Character model")] private GameObject characterModel;
+
+    [Header("Testing Things")]
     //it is the SerializeField that is in testing and not the variables
     [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 moveDir;
     [SerializeField] [Tooltip("Testing purposes as of now")] private Vector3 relativeMoreDir;
@@ -36,6 +45,32 @@ public class PlayerMovementV2 : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.Jumping.performed += Jump;
         inputActions.Player.Pause.performed += Pause;
+        inputActions.Player.Crouch.performed += Crouch;
+    }
+
+    private void Crouch(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (IsGrounded())
+        {
+            isCrouching = !isCrouching;
+
+            if (isCrouching)
+            {
+                cC.height /= 2;
+                cC.center = new Vector3(0, -0.5f, 0);
+                characterModel.transform.localPosition = new Vector3(0, -0.5f, 0);
+                characterModel.transform.localScale = new Vector3(0.6f, 0.5f, 0.6f);
+                cam.localPosition = new Vector3(cam.localPosition.x, cam.localPosition.y - 0.5f, cam.localPosition.z);
+            }
+            else
+            {
+                cC.height *= 2;
+                cC.center = new Vector3(0, 0, 0);
+                characterModel.transform.localPosition = new Vector3(0, 0, 0);
+                characterModel.transform.localScale = new Vector3(0.6f, 1, 0.6f);
+                cam.localPosition = new Vector3(cam.localPosition.x, cam.localPosition.y + 0.5f, cam.localPosition.z);
+            }
+        }
     }
 
     private void Pause(UnityEngine.InputSystem.InputAction.CallbackContext obj)
