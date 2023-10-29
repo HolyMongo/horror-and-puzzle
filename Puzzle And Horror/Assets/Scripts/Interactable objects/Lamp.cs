@@ -1,19 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Lamp : MonoBehaviour, I_Interactable
 {
     private Light lightsource;
+    [SerializeField] private string popUpText;
+
+    [Header("temporary vairables that may move to another script")]
+    [SerializeField] TextMeshProUGUI crossairTextBar;
     private void Start()
     {
         lightsource = gameObject.GetComponent<Light>();
     }
     public void Interact()
     {
-
-        //lightsource.color = new Color32(Random.Range(0, 256), 0, 0, 0);
-        //lightsource.color = new Color32(Random.Range(0, 13), 0, 0, 0);
         lightsource.color = Random.ColorHSV();
+    }
+    
+    public void LookAt()
+    {
+        if (crossairTextBar != null && popUpText != null)
+        {
+            crossairTextBar.text = popUpText;
+        }
     }
 }
