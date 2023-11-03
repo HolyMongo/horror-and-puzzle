@@ -7,9 +7,6 @@ public class Lamp : MonoBehaviour, I_Interactable
 {
     private Light lightsource;
     [SerializeField] private string popUpText;
-
-    [Header("temporary vairables that may move to another script")]
-    [SerializeField] TextMeshProUGUI crossairTextBar;
     private void Start()
     {
         lightsource = gameObject.GetComponent<Light>();
@@ -19,11 +16,9 @@ public class Lamp : MonoBehaviour, I_Interactable
         lightsource.color = Random.ColorHSV();
     }
     
-    public void LookAt()
+    public void LookAt(out string popupText)
     {
-        if (crossairTextBar != null && popUpText != null)
-        {
-            crossairTextBar.text = popUpText;
-        }
+        popupText = popUpText;
+       
     }
 }

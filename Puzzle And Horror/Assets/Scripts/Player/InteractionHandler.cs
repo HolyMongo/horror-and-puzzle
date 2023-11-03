@@ -8,16 +8,21 @@ public class InteractionHandler : MonoBehaviour
     PlayerInputActions inputActions;
     [SerializeField] [Tooltip("The rach of the player interactions")] float dist = 10f;
 
-    [Header("temporary vairables that may move to another script")]
-    [SerializeField] TextMeshProUGUI crossairTextBar;
+    [SerializeField] private TextMeshProUGUI crossairTextBar;
+
+    private string passOnString;
 
     private void Start()
     {
         inputActions = new PlayerInputActions();
         inputActions.Player.Interact.Enable();
         inputActions.Player.Interact.performed += Interact_performed;
-
+        if (GameObject.Find("PopupText").GetComponent<TextMeshProUGUI>())
+        {
+            crossairTextBar = GameObject.Find("PopupText").GetComponent<TextMeshProUGUI>();
+        }
     }
+
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         //float dist = Vector3.Distance(transform.position, Camera.main.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)));
@@ -52,16 +57,25 @@ public class InteractionHandler : MonoBehaviour
         {
             if (rayHit.transform.TryGetComponent<I_Interactable>(out I_Interactable interactable))
             {
-                interactable.LookAt();
+                interactable.LookAt(out passOnString);
             }
             else //If we are not looking at anything we do not want to show text so me reset its value
             {
-                crossairTextBar.text = "";
+                passOnString = "";
             }
         }
         else //If we are not looking at anything we do not want to show text so me reset its value
         {
-            crossairTextBar.text = "";
+            passOnString = "";
+        }
+        ChangeText(passOnString);
+    }
+
+    public void ChangeText(string popUpText)
+    {
+        if (crossairTextBar != null && popUpText != null)
+        {
+            crossairTextBar.text = popUpText;
         }
     }
 }
